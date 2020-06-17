@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 
-@Entity
+@Entity()
 data class QuestionItem(var name: String = "",
                         var isAvailable: Boolean = false,
                         @Id
