@@ -1,7 +1,8 @@
 package com.puc.quiz.config
 
-import com.puc.quiz.model.QuestionItem
-import com.puc.quiz.model.QuestionType
+import com.puc.quiz.factory.DistribuidasQuestionFactory
+import com.puc.quiz.factory.HibridasQuestionFactory
+import com.puc.quiz.factory.RedesQuestionFactory
 import com.puc.quiz.repository.QuestionItemRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
@@ -16,11 +17,11 @@ class DBHelper(private val questionItemRepository: QuestionItemRepository) : Com
     }
 
     override fun run(vararg args: String?) {
-        val items = listOf(
-                QuestionItem("questao1", true, "Qual sua idade?", QuestionType.AEDS),
-                QuestionItem("questao2", true, "Qual seu nome?", QuestionType.HIBRIDAS),
-                QuestionItem("questao3", true, "Qual sua altura?",QuestionType.DISTRIBUIDAS)
-        )
+        val items =
+                HibridasQuestionFactory.generateQuestions() +
+                        RedesQuestionFactory.generateQuestions() +
+                        DistribuidasQuestionFactory.generateQuestions()
+
         questionItemRepository.saveAll(items)
     }
 
